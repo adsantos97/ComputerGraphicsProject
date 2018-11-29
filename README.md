@@ -1,3 +1,15 @@
+# Introduction/Description
+This will include the text for the description of my project
+
+## Implementation
+
+## Technical Issues Faced
+
+## Sources Used
+
+
+
+-----------------------------------------------------------------
 ## Welcome to GitHub Pages
 
 You can use the [editor on GitHub](https://github.com/adsantos97/ComputerGraphicsProject/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
