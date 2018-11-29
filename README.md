@@ -1,4 +1,4 @@
-# Introduction/Description
+## Introduction/Description
 This will include the text for the description of my project
 
 ## Implementation
