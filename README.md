@@ -1,11 +1,11 @@
 ## Introduction/Description
 This will include the text for the description of my project
 
-## Implementation
+### Implementation
 
-## Technical Issues Faced
+### Technical Issues Faced
 
-## Sources Used
+### Sources Used
 
 
 
