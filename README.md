@@ -117,7 +117,7 @@ function drawStars() {
 * [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157) - tutorial used for a majority of the effects
 * [Beginning with 3D WebGL](https://codepen.io/rachsmith/post/beginning-with-3d-webgl-pt-1-the-scene) - beginning reference
 * [Animating Scenes with WebGL + Three.js](https://www.august.com.au/blog/animating-scenes-with-webgl-three-js/) - beginning reference
-* [Particles Example] (https://threejs.org/examples/?q=partic#webgl_buffergeometry_custom_attributes_particles)
+* [Particles Example](https://threejs.org/examples/?q=partic#webgl_buffergeometry_custom_attributes_particles) - used for background particles
 * [w3schools](https://www.w3schools.com/jsref/dom_obj_style.asp) - help with HTML
 * [Three.js](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene) - three.js documentation to help understand various methods.  
 
