@@ -106,6 +106,10 @@ function drawStars() {
     scene.add(stars);
   }
 ```
+
+**Video Demo**
+[Pig Three.js](https://youtu.be/6Kiu6m2S1z4)  
+
 ## Technical Issues Faced
 - Images won't show up on GitHub Page
 - Legs won't pivot correctly on the pig. I chose to omit their movement.
