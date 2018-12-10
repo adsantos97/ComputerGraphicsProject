@@ -3,6 +3,7 @@ This is my final project for CS486: Computer Graphics. The project models a low 
 
 ### Project Specifics
 Project Option Chosen: Option 1 - Modeling
+
 Manual Modeling & Procedural Modeling
 
 Primitives Used:
