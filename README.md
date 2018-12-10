@@ -9,6 +9,7 @@ Primitives Used:
 * Sphere
 * Cylinder
 * Cone
+* Box
 
 Effects Used:
 * Shadows
@@ -80,6 +81,31 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 **Collision Detection & Particle Explosion:** `doTreeLogic()` checks if the Pig is close to a tree. `explode()` and `doExplosionLogic()` are called when Pig collides. `addExplosion()` creates a pixelated explosion using `ParticleBasicMaterial` and `Points`.  
 
+**Add Extra Particle System:** Used in the background.  
+```
+function drawStars() {
+  stars = new THREE.Group();
+  scene.add(particles);
+
+  var star_geometry = new THREE.BoxGeometry(0.6, 0.6, 0.6);
+
+  var i;
+  for(i = 0; i < particles; i++) {
+    var star_material = new THREE.MeshPhongMaterial({
+      color: 0x2D6905,
+      shading: THREE.FlatShading
+    });
+
+    var star_mesh = new THREE.Mesh(star_geometry, star_material);
+    star_mesh.position.set((Math.random() - 0.5) * 100,
+        (Math.random() - 0.5) * 100, (Math.random() - 0.5) * 100);
+
+    star_mesh.updateMatrix();
+    star_mesh.matrixAutoUpdate = false;
+    stars.add(star_mesh);
+    scene.add(stars);
+  }
+```
 ## Technical Issues Faced
 - Images won't show up on GitHub Page
 - Legs won't pivot correctly on the pig. I chose to omit their movement.
@@ -91,6 +117,7 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 * [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157) - tutorial used for a majority of the effects
 * [Beginning with 3D WebGL](https://codepen.io/rachsmith/post/beginning-with-3d-webgl-pt-1-the-scene) - beginning reference
 * [Animating Scenes with WebGL + Three.js](https://www.august.com.au/blog/animating-scenes-with-webgl-three-js/) - beginning reference
+* [Particles Example](https://threejs.org/examples/?q=partic#webgl_buffergeometry_custom_attributes_particles) - used for background particles
 * [w3schools](https://www.w3schools.com/jsref/dom_obj_style.asp) - help with HTML
 * [Three.js](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene) - three.js documentation to help understand various methods.  
 
