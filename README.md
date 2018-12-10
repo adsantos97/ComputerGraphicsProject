@@ -44,7 +44,22 @@ The body group consists of adding:
 * leg3 group
 * leg4 group
 
-![Model of Pig](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/modeledPig.JPG)
+![Model of Pig](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/modeledPig.JPG)  
+
+Extra GUI controls for FUN:  
+```
+// gui
+  var gui = new dat.GUI();
+  var h = gui.addFolder("Pig Parameters");
+  h.open();
+  // axis, start, end, increment
+  h.add(head.rotation, "y", -0.18*Math.PI, 0.18*Math.PI, 0.01).
+      name("Head Side to Side");
+  head.position.y = 1.0;
+  head.position.x = -0.5;
+  h.add(head.rotation, "z", -0.1*Math.PI, 0.08*Math.PI, 0.01).
+      name("Head Bob Up & Down");
+ ```
 
 ### Modeling the Forest, Adding keyboard controls, Shadows, Collision Detection
 For the majority of the effects, I used [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157).  
@@ -56,15 +71,28 @@ To enable shadows on the scene:
 renderer.shadowMap.enabled = true; 
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 ```
+**Modeling the Trees:** Use `createTree()`, `blowUpTree()`, and `tightenTree()`. These methods use vertex manipulation. Use `addWorldTrees()`, `addTree()`, `addPathTree()`, `createTreesPool()`, and `doTreeLogic()` for placement of trees.  
+**Keyboard Controls:**  
+* `keyEvent.keyCode === 66` - "b" to rotate the pig
+* `keyEvent.keyCode === 37` - left arrow to move left
+* `keyEvent.keyCode === 39` - right arrow to move right
+* `keyEvent.keyCode === 38` - up arrow to jump  
 
+**Collision Detection & Particle Explosion:** `doTreeLogic()` checks if the Pig is close to a tree. `explode()` and `doExplosionLogic()` are called when Pig collides. `addExplosion()` creates a pixelated explosion using `ParticleBasicMaterial` and `Points`.  
 
 ## Technical Issues Faced
 - Images won't show up on GitHub Page
+- Legs won't pivot correctly on the pig. I chose to omit their movement.
+- I changed the Orbit Control keys to change the camera. Both those keys and the keys to move the pig shift the screen a bit.
 
 ## Sources Used
 * Hierarchial Transformation lab - used for modeling the pig  
 * [Mastering Markdown](https://guides.github.com/features/mastering-markdown/) - used to create the GitHub Page  
 * [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157) - tutorial used for a majority of the effects
+* [Beginning with 3D WebGL](https://codepen.io/rachsmith/post/beginning-with-3d-webgl-pt-1-the-scene) - beginning reference
+* [Animating Scenes with WebGL + Three.js](https://www.august.com.au/blog/animating-scenes-with-webgl-three-js/) - beginning reference
+* [w3schools](https://www.w3schools.com/jsref/dom_obj_style.asp) - help with HTML
+* [Three.js](https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene) - three.js documentation to help understand various methods.  
 
 ## Vocabulary
 * low poly: is a polygon mesh in 3D computer graphics that has a relatively small number of polygons.
