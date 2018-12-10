@@ -18,7 +18,7 @@ Effects Used:
 
 ## Implementation
 Plateus:
-- [x] Model the Pig
+* Model the Pig
 * Model the Forest (procedural)
 * Add keyboard controls to move the Pig
 * Shadows
@@ -46,10 +46,14 @@ The body group consists of adding:
 
 ![Model of Pig](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/modeledPig.JPG)
 
+### Modeling the Forest, Adding keyboard controls, Shadows, Collision Detection
+For the majority of the effects, I used [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157)
+
 ## Technical Issues Faced
 
 ## Sources Used
 [Mastering Markdown](https://guides.github.com/features/mastering-markdown/) - used to create the GitHub Page
+[Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157)
 
 ## Vocabulary
 * low poly: is a polygon mesh in 3D computer graphics that has a relatively small number of polygons.
