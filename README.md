@@ -44,7 +44,7 @@ The body group consists of adding:
 * leg3 group
 * leg4 group
 
-![Model of Pig](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/modeledPig.JPG)
+
 <img src="ComputerGraphicsProject/images/modeledPig.JPG " alt="Model of Pig" class="inline"/>
 
 ### Modeling the Forest, Adding keyboard controls, Shadows, Collision Detection
