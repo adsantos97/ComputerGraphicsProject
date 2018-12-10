@@ -18,7 +18,7 @@ Effects Used:
 
 ## Implementation
 Plateus:
-* Model the Pig
+- [x] Model the Pig
 * Model the Forest (procedural)
 * Add keyboard controls to move the Pig
 * Shadows
