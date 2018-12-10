@@ -9,6 +9,7 @@ Primitives Used:
 * Sphere
 * Cylinder
 * Cone
+* Box
 
 Effects Used:
 * Shadows
@@ -80,6 +81,31 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 **Collision Detection & Particle Explosion:** `doTreeLogic()` checks if the Pig is close to a tree. `explode()` and `doExplosionLogic()` are called when Pig collides. `addExplosion()` creates a pixelated explosion using `ParticleBasicMaterial` and `Points`.  
 
+**Add Extra Particle System:** Used in the background.  
+```
+function drawStars() {
+  stars = new THREE.Group();
+  scene.add(particles);
+
+  var star_geometry = new THREE.BoxGeometry(0.6, 0.6, 0.6);
+
+  var i;
+  for(i = 0; i < particles; i++) {
+    var star_material = new THREE.MeshPhongMaterial({
+      color: 0x2D6905,
+      shading: THREE.FlatShading
+    });
+
+    var star_mesh = new THREE.Mesh(star_geometry, star_material);
+    star_mesh.position.set((Math.random() - 0.5) * 100,
+        (Math.random() - 0.5) * 100, (Math.random() - 0.5) * 100);
+
+    star_mesh.updateMatrix();
+    star_mesh.matrixAutoUpdate = false;
+    stars.add(star_mesh);
+    scene.add(stars);
+  }
+```
 ## Technical Issues Faced
 - Images won't show up on GitHub Page
 - Legs won't pivot correctly on the pig. I chose to omit their movement.
