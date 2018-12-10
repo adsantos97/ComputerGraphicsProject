@@ -48,14 +48,15 @@ The body group consists of adding:
 
 ### Modeling the Forest, Adding keyboard controls, Shadows, Collision Detection
 For the majority of the effects, I used [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157).  
-Fog Effect: `scene.fog = new THREE.FogExp2(0xff66b2, 0.14);`  
-Shadows: Manipulate `receiveShadow` and `castShadow` on meshes for objects.  
+![Example Model](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/example.JPG)  
+**Fog Effect:** `scene.fog = new THREE.FogExp2(0xff66b2, 0.14);`  
+**Shadows:** Manipulate `receiveShadow` and `castShadow` on meshes for objects.  
 To enable shadows on the scene:  
 ```
 renderer.shadowMap.enabled = true; 
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 ```
-to enable shadows.
+
 
 ## Technical Issues Faced
 - Images won't show up on GitHub Page
