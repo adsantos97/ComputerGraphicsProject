@@ -45,8 +45,7 @@ The body group consists of adding:
 * leg3 group
 * leg4 group
 
-![Model of Pig](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/modeledPig.JPG) 
-<a href="https://imgur.com/X84ahlO"><img src="https://i.imgur.com/X84ahlO.jpg" title="source: imgur.com" /></a>
+<a href="https://imgur.com/X84ahlO"><img src="https://i.imgur.com/X84ahlO.jpg" title="source: imgur.com alt="Model of Pig" /></a>
 
 Extra GUI controls for FUN:  
 ```
@@ -64,9 +63,8 @@ Extra GUI controls for FUN:
  ```
 
 ### Modeling the Forest, Adding keyboard controls, Shadows, Collision Detection
-For the majority of the effects, I used [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157).  
-![Example Model](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/example.JPG)  
-<a href="https://imgur.com/LrqsAHP"><img src="https://i.imgur.com/LrqsAHP.jpg" title="source: imgur.com" /></a>  
+For the majority of the effects, I used [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157).   
+<a href="https://imgur.com/LrqsAHP"><img src="https://i.imgur.com/LrqsAHP.jpg" title="source: imgur.com" alt="Example Model"/></a>  
 **Fog Effect:** `scene.fog = new THREE.FogExp2(0xff66b2, 0.14);`  
 **Shadows:** Manipulate `receiveShadow` and `castShadow` on meshes for objects.  
 To enable shadows on the scene:  
