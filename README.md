@@ -45,7 +45,7 @@ The body group consists of adding:
 * leg3 group
 * leg4 group
 
-<a href="https://imgur.com/X84ahlO"><img src="https://i.imgur.com/X84ahlO.jpg" title="source: imgur.com alt="Model of Pig" /></a>
+<a href="https://imgur.com/X84ahlO"><img src="https://i.imgur.com/X84ahlO.jpg" title="source: imgur.com" /></a>
 
 Extra GUI controls for FUN:  
 ```
