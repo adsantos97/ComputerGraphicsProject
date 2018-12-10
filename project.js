@@ -741,7 +741,7 @@ function drawStars() {
   stars = new THREE.Group();
   scene.add(particles);
 
-  var star_geometry = new THREE.BoxGeometry(0.6, 0.6, 0.6);
+  var star_geometry = new THREE.BoxGeometry(0.4, 0.4, 0.4);
 
   var i;
   for(i = 0; i < particles; i++) {
