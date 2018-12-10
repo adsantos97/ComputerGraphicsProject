@@ -10,6 +10,8 @@
 * (4) https://www.w3schools.com/jsref/dom_obj_style.asp
 */
 
+var stars;
+var particles = 800;
 var sceneWidth;
 var sceneHeight;
 var camera;
@@ -84,12 +86,13 @@ function createScene() {
   var aspect = sceneWidth/sceneHeight;
   camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 1000);
   renderer = new THREE.WebGLRenderer({alpha:true});
-  renderer.setClearColor(0xFCDDEB, 1);
+  renderer.setClearColor(0xF9E7EF, 1);
   renderer.shadowMap.enabled = true; // enable shadow
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.setSize(sceneWidth, sceneHeight);
   document.body.appendChild(renderer.domElement);
 
+  drawStars();
   createTreesPool();
   addWorld();
   addPig();
@@ -383,7 +386,7 @@ function createTree(){
   var midPointVector = new THREE.Vector3();
   var vertexVector= new THREE.Vector3();
 
-  var treeGeometry = new THREE.ConeGeometry(0.75, 1, sides, tiers);
+  var treeGeometry = new THREE.CylinderGeometry(1, 0.8, 1, sides, tiers);
   var treeMaterial = new THREE.MeshStandardMaterial({
     color: 0x6600CC,shading:THREE.FlatShading
   });
@@ -405,7 +408,7 @@ function createTree(){
   treeTop.position.y = 0.9;
   treeTop.rotation.y=(Math.random()*(Math.PI));
 
-  var treeTrunkGeometry = new THREE.CylinderGeometry(0.2, 0.2,0.5);
+  var treeTrunkGeometry = new THREE.CylinderGeometry(0.2, 0.2, 0.5);
   var trunkMaterial = new THREE.MeshStandardMaterial({
     color: 0x886633,shading:THREE.FlatShading
   });
@@ -691,6 +694,9 @@ function addPig(){
  * Gets called repeatedly using requestAnimationFrame
  */
 function update(){
+  var time = Date.now() * 0.005;
+  stars.rotation.z = 0.01 * time;
+
   rollingGroundSphere.rotation.x += rollingSpeed;
   if(pig.position.y<=heroBaseY){
   	jumping = false;
@@ -726,4 +732,31 @@ function onWindowResize() {
   renderer.setSize(sceneWidth, sceneHeight);
   camera.aspect = sceneWidth/sceneHeight;
   camera.updateProjectMatrix();
+}
+
+/**
+ * Particle box stars
+ */
+function drawStars() {
+  stars = new THREE.Group();
+  scene.add(particles);
+
+  var star_geometry = new THREE.BoxGeometry(0.6, 0.6, 0.6);
+
+  var i;
+  for(i = 0; i < particles; i++) {
+    var star_material = new THREE.MeshPhongMaterial({
+      color: 0x2D6905,
+      shading: THREE.FlatShading
+    });
+
+    var star_mesh = new THREE.Mesh(star_geometry, star_material);
+    star_mesh.position.set((Math.random() - 0.5) * 100,
+        (Math.random() - 0.5) * 100, (Math.random() - 0.5) * 100);
+
+    star_mesh.updateMatrix();
+    star_mesh.matrixAutoUpdate = false;
+    stars.add(star_mesh);
+    scene.add(stars);
+  }
 }
