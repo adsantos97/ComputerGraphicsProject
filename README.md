@@ -30,12 +30,14 @@ I modelled the pig separately with the help of the AxesHelper() and GridHelper()
 I created a pig group, which would be the group that would return at the end of generatePig().  
 The following groups were added to the pig group:
 * head
-* body
+* body  
+
 The head group consists of adding:
 * eyes
 * ears
 * snout group
 * nostrils (added to the snout group)
+
 The body group consists of adding:
 * leg1 group
 * leg2 group
