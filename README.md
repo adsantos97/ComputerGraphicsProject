@@ -110,6 +110,7 @@ function drawStars() {
 - Images won't show up on GitHub Page
 - Legs won't pivot correctly on the pig. I chose to omit their movement.
 - I changed the Orbit Control keys to change the camera. Both those keys and the keys to move the pig shift the screen a bit.
+- The background particles collide with the world.
 
 ## Sources Used
 * Hierarchial Transformation lab - used for modeling the pig  
