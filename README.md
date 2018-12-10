@@ -44,12 +44,27 @@ The body group consists of adding:
 * leg3 group
 * leg4 group
 
-![Model of Pig](url)
+![Model of Pig](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/modeledPig.JPG)
+
+### Modeling the Forest, Adding keyboard controls, Shadows, Collision Detection
+For the majority of the effects, I used [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157).  
+![Example Model](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/example.JPG)  
+**Fog Effect:** `scene.fog = new THREE.FogExp2(0xff66b2, 0.14);`  
+**Shadows:** Manipulate `receiveShadow` and `castShadow` on meshes for objects.  
+To enable shadows on the scene:  
+```
+renderer.shadowMap.enabled = true; 
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+```
+
 
 ## Technical Issues Faced
+- Images won't show up on GitHub Page
 
 ## Sources Used
-[Mastering Markdown](https://guides.github.com/features/mastering-markdown/) - used to create the GitHub Page
+* Hierarchial Transformation lab - used for modeling the pig  
+* [Mastering Markdown](https://guides.github.com/features/mastering-markdown/) - used to create the GitHub Page  
+* [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157) - tutorial used for a majority of the effects
 
 ## Vocabulary
 * low poly: is a polygon mesh in 3D computer graphics that has a relatively small number of polygons.
