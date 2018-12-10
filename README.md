@@ -45,7 +45,7 @@ The body group consists of adding:
 * leg4 group
 
 ![Model of Pig](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/modeledPig.JPG)
-<img src="ComputerGraphicsProject/images/modeledPig" alt="Model of Pig" class="inline"/>
+<img src="ComputerGraphicsProject/images/modeledPig.JPG" alt="Model of Pig" class="inline"/>
 
 ### Modeling the Forest, Adding keyboard controls, Shadows, Collision Detection
 For the majority of the effects, I used [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157).  
