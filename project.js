@@ -43,7 +43,6 @@ var particleGeometry;
 var particleCount = 20;
 var explosionPower = 1.06;
 var particles;
-//var stats;
 var scoreText;
 var score;
 var hasCollided;
@@ -80,6 +79,7 @@ function createScene() {
 
   // create a scene to place objects, cameras, lighting
   scene = new THREE.Scene();
+  // add fog
   scene.fog = new THREE.FogExp2(0xff66b2, 0.14);
   var aspect = sceneWidth/sceneHeight;
   camera = new THREE.PerspectiveCamera(60, aspect, 0.1, 1000);
@@ -92,7 +92,7 @@ function createScene() {
 
   createTreesPool();
   addWorld();
-  addHero();
+  addPig();
   addLight();
   addExplosion();
 
@@ -297,14 +297,15 @@ function generatePig() {
   head.position.x = -0.5;
   h.add(head.rotation, "z", -0.1*Math.PI, 0.08*Math.PI, 0.01).
       name("Head Bob Up & Down");
-  //h.add(body.rotation, "z", 0.0, Math.PI, 0.01).name("Body Rotation");
-
 
   return pig;
 }
 
 /**
  * Create scrolling ground -> world to move on
+ * Illusion of rotating a big sphere on the x axis.
+ * Vertex manipulation is used to change the surface of the sphere into rough
+ * terrain.
  */
 function addWorld() {
   var sides = 40;
@@ -355,6 +356,9 @@ function addWorld() {
 	addWorldTrees();
 }
 
+/**
+ * Add sunlight to the scene using hemisphereLight and DirectionalLight.
+ */
 function addLight(){
   var hemisphereLight = new THREE.HemisphereLight(0xfffafa, 0x000000, 0.9);
   scene.add(hemisphereLight);
@@ -369,6 +373,9 @@ function addLight(){
   sun.shadow.camera.far = 50;
 }
 
+/**
+ * Use vertex manipulation on the primitives (cone & cylinder)
+ */
 function createTree(){
   var sides = 8;
   var tiers = 6;
@@ -414,6 +421,7 @@ function createTree(){
  * Pushes out every alternative vertex in a ring of vertices while keeping
  * the other vertices in the ring at a lesser height. This creates the pointy
  * branches on the tree.
+ * Uses random rotation on the y axis to break uniformity.
  */
 function blowUpTree(vertices, sides, currentTier, scalarMultiplier, odd){
   var vertexIndex;
@@ -466,35 +474,8 @@ function tightenTree(vertices, sides, currentTier){
 }
 
 /**
- * Block pixel explosion effect
+ * Called from update() when enough time has elapsed planting the last tree.
  */
-function addExplosion(){
-  particleGeometry = new THREE.Geometry();
-  for(var i = 0; i < particleCount; i ++ ) {
-    var vertex = new THREE.Vector3();
-    particleGeometry.vertices.push(vertex);
-  }
-  var pMaterial = new THREE.ParticleBasicMaterial({
-    color: 0xffcce5,
-    size: 0.2
-  });
-  particles = new THREE.Points(particleGeometry, pMaterial);
-  scene.add(particles);
-  particles.visible = false;
-}
-
-/**
- * Plant the trees on the path.
- */
- function createTreesPool() {
-   var maxTreesInPool = 10;
-   var newTree;
-   for(var i = 0; i < maxTreesInPool; i++){
-     newTree = createTree();
-     treesPool.push(newTree);
-   }
- }
-
 function addPathTree() {
   var options = [0, 1, 2];
   var lane = Math.floor(Math.random() * 3);
@@ -506,6 +487,9 @@ function addPathTree() {
   }
 }
 
+/**
+ * Places trees not in the path of the Pig.
+ */
 function addWorldTrees() {
   var numTrees = 36;
   var gap = 6.28 / 36;
@@ -515,6 +499,9 @@ function addWorldTrees() {
   }
 }
 
+/**
+ * Place trees on the world.
+ */
 function addTree(inPath, row, isLeft){
   var newTree;
   if(inPath){
@@ -544,8 +531,104 @@ function addTree(inPath, row, isLeft){
     rollingGroundSphere.add(newTree);
   }
 
+  /**
+   * Plant the trees on the path of the Pig.
+   */
+   function createTreesPool() {
+     var maxTreesInPool = 10;
+     var newTree;
+     for(var i = 0; i < maxTreesInPool; i++){
+       newTree = createTree();
+       treesPool.push(newTree);
+     }
+   }
+
 /**
- * User Interaction
+ * Returns the tree to the pool once it goes out of view.
+ * Also used for collision detection; checks if the Pig is close to a tree.
+ */
+function doTreeLogic(){
+  	var oneTree;
+  	var treePos = new THREE.Vector3();
+  	var treesToRemove = [];
+  	treesInPath.forEach( function(element, index) {
+  		oneTree = treesInPath[index];
+  		treePos.setFromMatrixPosition(oneTree.matrixWorld);
+  		if(treePos.z > 6 && oneTree.visible){//gone out of our view zone
+  			treesToRemove.push(oneTree);
+  		} else {//check collision
+  			if(treePos.distanceTo(pig.position) <= 0.6){
+  				console.log("hit");
+  				hasCollided = true;
+  				explode();
+  			}
+  		}
+  	});
+  	var fromWhere;
+  	treesToRemove.forEach(function (element, index) {
+  		oneTree = treesToRemove[ index ];
+  		fromWhere = treesInPath.indexOf(oneTree);
+  		treesInPath.splice(fromWhere, 1);
+  		treesPool.push(oneTree);
+  		oneTree.visible = false;
+  		console.log("remove tree");
+  	});
+}
+
+/**
+ * Block pixel explosion effect
+ */
+function addExplosion(){
+  particleGeometry = new THREE.Geometry();
+  for(var i = 0; i < particleCount; i ++ ) {
+    var vertex = new THREE.Vector3();
+    particleGeometry.vertices.push(vertex);
+  }
+  var pMaterial = new THREE.ParticleBasicMaterial({
+    color: 0xffcce5,
+    size: 0.2
+  });
+  particles = new THREE.Points(particleGeometry, pMaterial);
+  scene.add(particles);
+  particles.visible = false;
+}
+
+/**
+ * Called in update() to make particle object visible.
+ */
+function doExplosionLogic(){
+  if(!particles.visible) return;
+	for(var i = 0; i < particleCount; i++) {
+    particleGeometry.vertices[i].multiplyScalar(explosionPower);
+	}
+  if(explosionPower > 1.005){
+		explosionPower -= 0.001;
+	} else {
+		particles.visible = false;
+	}
+  particleGeometry.verticesNeedUpdate = true;
+}
+
+/**
+ * Called when the effect needs to run.
+ */
+function explode() {
+  particles.position.y = 2;
+	particles.position.z = 4.8;
+	particles.position.x = pig.position.x;
+  for(var i = 0; i < particleCount; i++) {
+    var vertex = new THREE.Vector3();
+    vertex.x = -0.2 + Math.random() * 0.4;
+		vertex.y = -0.2 + Math.random() * 0.4 ;
+		vertex.z = -0.2 + Math.random() * 0.4;
+		particleGeometry.vertices[i] = vertex;
+	}
+  explosionPower = 1.07;
+	particles.visible = true;
+}
+
+/**
+ * User Interaction.
  */
  function handleKeyDown(keyEvent) {
    if(jumping) return;
@@ -578,7 +661,7 @@ function addTree(inPath, row, isLeft){
      }
      validMove = false;
    }
-   //heroSphere.position.x=currentLane;
+
    if(validMove){
      jumping = true;
      bounceValue = 0.06;
@@ -586,18 +669,10 @@ function addTree(inPath, row, isLeft){
  }
 
 /**
- * Add Hero to scene
+ * Add Pig to scene
  */
-function addHero(){
-  /*var sphereGeometry = new THREE.DodecahedronGeometry(heroRadius, 1);
-  var sphereMaterial = new THREE.MeshStandardMaterial({
-    color: 0xe5f2f2 ,shading:THREE.FlatShading
-  });
+function addPig(){
   jumping = false;
-  heroSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
-  heroSphere.receiveShadow = true;
-  heroSphere.castShadow = true;*/
-
   pig = generatePig();
   pig.receiveShadow = true;
   pig.castShadow = true;
@@ -609,99 +684,42 @@ function addHero(){
   pig.position.z = 4.8;
   currentLane = middleLane;
   pig.position.x = currentLane;
-
-  /*heroSphere.position.y = heroBaseY;
-  heroSphere.position.z = 4.8;
-  currentLane = middleLane;
-  heroSphere.position.x = currentLane;*/
 }
 
+/**
+ * Core mechanic for world loop.
+ * Gets called repeatedly using requestAnimationFrame
+ */
 function update(){
-	//stats.update();
   rollingGroundSphere.rotation.x += rollingSpeed;
-  //pig.rotation.x -= heroRollingSpeed;
   if(pig.position.y<=heroBaseY){
   	jumping = false;
   	bounceValue = (Math.random() * 0.04) + 0.005;
   }
   pig.position.y += bounceValue;
   pig.position.x = THREE.Math.lerp(pig.position.x,
-  currentLane, 2 * clock.getDelta());//clock.getElapsedTime());
+  currentLane, 2 * clock.getDelta()); //clock.getElapsedTime());
   bounceValue -= gravity;
   if(clock.getElapsedTime() > treeReleaseInterval){
     clock.start();
   	addPathTree();
-  	//if(!hasCollided) {
-      //score += 2 * treeReleaseInterval;
-      //scoreText.innerHTML = score.toString();
-    //}
   }
   doTreeLogic();
   doExplosionLogic();
   render();
-  requestAnimationFrame(update);//request next update
+  requestAnimationFrame(update); //request next update
 }
 
-function doTreeLogic(){
-	var oneTree;
-	var treePos = new THREE.Vector3();
-	var treesToRemove = [];
-	treesInPath.forEach( function(element, index) {
-		oneTree = treesInPath[index];
-		treePos.setFromMatrixPosition(oneTree.matrixWorld);
-		if(treePos.z > 6 && oneTree.visible){//gone out of our view zone
-			treesToRemove.push(oneTree);
-		} else {//check collision
-			if(treePos.distanceTo(pig.position) <= 0.6){
-				console.log("hit");
-				hasCollided = true;
-				explode();
-			}
-		}
-	});
-	var fromWhere;
-	treesToRemove.forEach(function (element, index) {
-		oneTree = treesToRemove[ index ];
-		fromWhere = treesInPath.indexOf(oneTree);
-		treesInPath.splice(fromWhere, 1);
-		treesPool.push(oneTree);
-		oneTree.visible = false;
-		console.log("remove tree");
-	});
-}
-
-function doExplosionLogic(){
-  if(!particles.visible) return;
-	for(var i = 0; i < particleCount; i++) {
-    particleGeometry.vertices[i].multiplyScalar(explosionPower);
-	}
-  if(explosionPower > 1.005){
-		explosionPower -= 0.001;
-	} else {
-		particles.visible = false;
-	}
-  particleGeometry.verticesNeedUpdate = true;
-}
-
-function explode() {
-  particles.position.y = 2;
-	particles.position.z = 4.8;
-	particles.position.x = pig.position.x;
-  for(var i = 0; i < particleCount; i++) {
-    var vertex = new THREE.Vector3();
-    vertex.x = -0.2 + Math.random() * 0.4;
-		vertex.y = -0.2 + Math.random() * 0.4 ;
-		vertex.z = -0.2 + Math.random() * 0.4;
-		particleGeometry.vertices[i] = vertex;
-	}
-  explosionPower = 1.07;
-	particles.visible = true;
-}
-
+/**
+ * Render the camera and scene combination.
+ */
 function render() {
   renderer.render(scene, camera);
 }
 
+/**
+ * Gets called when user resizes their window.
+ */
 function onWindowResize() {
   sceneHeight = window.innerHeight;
   sceneWidth = window.innerWidth;
