@@ -44,12 +44,12 @@ The body group consists of adding:
 * leg3 group
 * leg4 group
 
-![Model of Pig](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/modeledPig.JPG)
+![Model of Pig](ComputerGraphicsProject/images/modeledPig.JPG)
 
 ### Modeling the Forest, Adding keyboard controls, Shadows, Collision Detection
 For the majority of the effects, I used [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157).  
-Fog Effect:  
-`scene.fog = new THREE.FogExp2(0xff66b2, 0.14);`
+Fog Effect: `scene.fog = new THREE.FogExp2(0xff66b2, 0.14);`
+
 
 ## Technical Issues Faced
 
