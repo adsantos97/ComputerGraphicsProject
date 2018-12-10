@@ -44,7 +44,7 @@ The body group consists of adding:
 * leg3 group
 * leg4 group
 
-![Model of Pig](url)
+![Model of Pig](/images/modeledPig.jpg)
 
 ## Technical Issues Faced
 
