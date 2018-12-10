@@ -44,7 +44,22 @@ The body group consists of adding:
 * leg3 group
 * leg4 group
 
-![Model of Pig](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/modeledPig.JPG)
+![Model of Pig](https://github.com/adsantos97/ComputerGraphicsProject/blob/master/images/modeledPig.JPG)  
+
+Extra GUI controls for FUN:  
+```
+// gui
+  var gui = new dat.GUI();
+  var h = gui.addFolder("Pig Parameters");
+  h.open();
+  // axis, start, end, increment
+  h.add(head.rotation, "y", -0.18*Math.PI, 0.18*Math.PI, 0.01).
+      name("Head Side to Side");
+  head.position.y = 1.0;
+  head.position.x = -0.5;
+  h.add(head.rotation, "z", -0.1*Math.PI, 0.08*Math.PI, 0.01).
+      name("Head Bob Up & Down");
+ ```
 
 ### Modeling the Forest, Adding keyboard controls, Shadows, Collision Detection
 For the majority of the effects, I used [Creating a Simple 3D Endless Runner Game Using Three.js](https://gamedevelopment.tutsplus.com/tutorials/creating-a-simple-3d-endless-runner-game-using-three-js--cms-29157).  
@@ -67,6 +82,8 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 ## Technical Issues Faced
 - Images won't show up on GitHub Page
+- Legs won't pivot correctly on the pig. I chose to omit their movement.
+- I changed the Orbit Control keys to change the camera. Both those keys and the keys to move the pig shift the screen a bit.
 
 ## Sources Used
 * Hierarchial Transformation lab - used for modeling the pig  
